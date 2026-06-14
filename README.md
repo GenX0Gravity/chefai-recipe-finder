@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ChefAI Recipe Finder
 
-## Getting Started
+ChefAI is an advanced, AI-powered culinary companion designed to revolutionize the way you discover, plan, and create meals. Built with Next.js 16 (App Router), Prisma, PostgreSQL, and Google Generative AI (Gemini 1.5 Pro).
 
-First, run the development server:
+## ✨ Features
 
+- **AI Recipe Generation**: Generate tailored recipes based on available ingredients, dietary preferences, and skill level.
+- **Premium Meal Planner**: AI-generated weekly and daily meal plans matching your caloric and dietary needs.
+- **Smart Grocery List**: Automatically cross-references missing ingredients and builds a shopping list with estimated costs.
+- **Voice Cooking Assistant**: Hands-free cooking with step-by-step voice guidance and speech recognition commands.
+- **Personal Cookbook**: Save, organize, edit, and categorize your favorite recipes.
+- **Beautiful Dark Mode UI**: A highly responsive, glassmorphism-inspired dark mode interface with smooth animations.
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 16.2.9 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS, Framer Motion, Lucide Icons, Shadcn UI
+- **Database**: PostgreSQL (Prisma ORM with PG Adapter)
+- **Authentication**: NextAuth.js (Google, GitHub providers)
+- **AI Engine**: Google Generative AI (Gemini 1.5 Flash/Pro)
+- **Deployment**: Google Cloud Run (Standalone output)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- PostgreSQL Database
+- Google Gemini API Key
+- OAuth Credentials (Google/GitHub)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/chefai-recipe-finder.git
+cd chefai-recipe-finder
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Setup environment variables:
+Create a `.env` file in the root directory:
+```env
+DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="http://localhost:3000"
+GOOGLE_CLIENT_ID="your_google_id"
+GOOGLE_CLIENT_SECRET="your_google_secret"
+GEMINI_API_KEY="your_gemini_api_key"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Initialize the database:
+```bash
+npx prisma generate
+npx prisma db push
+```
 
-## Learn More
+5. Run the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Visit `http://localhost:3000` in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📦 Deployment (Google Cloud Run)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project is configured for standalone deployment on Google Cloud Run via Docker.
 
-## Deploy on Vercel
+1. Build the Docker image:
+```bash
+docker build -t gcr.io/your-project-id/chefai .
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Push to Container Registry:
+```bash
+docker push gcr.io/your-project-id/chefai
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Deploy to Cloud Run:
+Deploy using the GCP Console, setting the Environment Variables defined in the `.env` section.
+
+## 📜 License
+MIT
